@@ -21,6 +21,15 @@ def guardarDato(archivo,tabla):
             abrir.write(',' + str(elemento))
         abrir.write('\n')
     abrir.close()
+
+#CÓDIGO
+def codigo(archivo):
+    archivo = open (archivo + ".txt", encoding= "utf-8", mode= "r")
+    numLineas = 0
+    for linea in archivo:
+        numLineas += 1
+    return numLineas
+
 #MODIFICA LOS DATOS DE CADA GESTIÓN
 def modificarDato(archivo):
     if not isinstance(archivo,str):
@@ -31,10 +40,14 @@ def modificarDato(archivo):
     if not os.path.exists(archivo+'.txt'):
 
          print (f"Error: El archivo '{archivo}' no existe")
-    archivo = open(archivo +".txt", encoding= "utf-8", mode= "w")
-    dato = input("Ingrese el dato que desea modificar ") 
-    
-#CARGA EL DATO DE CAFA GESTIÓN.
+    archivo = open(archivo +".txt", encoding= "utf-8", mode= "r+")
+    for i in archivo:
+        archivo.write(str(i[0]))
+        for elemento in i[1:]:
+            archivo.write(',' + str(elemento))
+        archivo.write('\n')
+    archivo.close()
+#CARGA EL DATO DE CADA GESTIÓN.
 def cargarDato(archivo):
     if not isinstance(archivo,str):
         return "Error: Tipo de parámetro no es texto."
@@ -43,7 +56,7 @@ def cargarDato(archivo):
     if not os.path.exists(archivo + ".txt"):
         return f"Error: El archivo '{archivo}' no existe"
       
-    abrir = open(archivo + ".txt", encoding = "utf-8", mode = "r")
+    abrir = open(archivo + ".txt", encoding = "utf-8", mode = "r+")
     lista = abrir.readlines()
     for linea in lista:
         linea = linea[:-1].split(',')
@@ -61,11 +74,14 @@ def tablaMostrar(tabla):
 #AGREGAR TIPOS DE GESTIÓN
 def agregarVehiculo():
     while True:
+        cod = codigo("vehiculo")
         archivo = open("vehiculo.txt",mode = "r+", encoding= "utf-8")
         tipoVehiculo = input(str("Ingrese el tipo de vehÍculo:"))
         cantPasajeros =input (str("Ingrese la cantidad de pasajeros del vehículo:"))
         cantEjes = input(str("Ingrese la cantidad de ejes del vehículo:"))
-        infoVehiculo = [" TIPO DE VEHICULO: " + tipoVehiculo," CANTIDAD DE PASAJEROS:  " + cantPasajeros,   "CANTIDAD DE EJES: " + cantEjes]
+        infoVehiculo = [" TIPO DE VEHICULO: " + tipoVehiculo,
+                        " CANTIDAD DE PASAJEROS: " + cantPasajeros,   
+                        "   CANTIDAD DE EJES: " + cantEjes,  " CÓDIGO " + str(cod)]
         archivo.writelines(infoVehiculo)
         guardarVehiculo()
         archivo.close()
@@ -76,7 +92,7 @@ def agregarRepuesto():
     nombre = input(str("Ingrese el nombre del repuesto:"))
     costoCompra = input(str ("Ingrese el costo del repuesto:"))
     precioVenta =input(str("Ingrese el precio de venta para el repuesto:"))
-    infoRepuesto = [nombre, costoCompra, precioVenta]
+    infoRepuesto = [nombre, costoCompra, precioVenta, "CÓDIGO" + codigo]
     archivo.writelines(infoRepuesto)
     guardarRepuesto()
     archivo.close()
@@ -87,7 +103,7 @@ def agregarManoObra():
     nombreM = input(str("Ingrese el nombre del mecánico a cargo del vehículo:"))
     tiempo = input(int("Ingrese el tiempo estimado de ejecución:"))
     precio = input(int("Ingrese el precio final de mano de obra:"))
-    infoManoObra = [nombreM, tiempo, precio]
+    infoManoObra = [nombreM, tiempo, precio, "CÓDIGO" + codigo]
     archivo.writelines(infoManoObra)
     guardarManoObra()
     archivo.close()
@@ -97,7 +113,7 @@ def agregarMantenimiento():
     nombreMantenimiento = input(str("Ingrese el tipo de mantenimiento que desea realizar:"))
     tipoVehiculo = input("Elija el tipo de vehiculo", vehiculo)
     precioServicio = input("agregue el precio del servicio a cobrar:")
-    infoMantenimiento = [nombreMantenimiento,tipoVehiculo,precioServicio] 
+    infoMantenimiento = [nombreMantenimiento,tipoVehiculo,precioServicio, "CÓDIGO" + codigo] 
     archivo.writelines(infoMantenimiento)
     guardarMantenimiento()
     archivo.close()
@@ -129,7 +145,15 @@ def mostrarMantenimiento():
     tablaMostrar(mantenimiento)
 
 #FUNCIÓN MODIFICAR
-
+def modVehiculo():
+   archivo = open(archivo + ".txt", encoding="utf-8" ,mode="w")
+   cod = codigo("vehiculo")
+   opcion = input("Ingrese el código del vehíulo que desea modificar")
+   if opcion == cod:
+       opIndice = input("elija el dato a modificar")
+       if opIndice == "TIPO DE VEHICULO:":
+           archivo.write("TIPO DE VEHICULO:")
+           
 
     
 #def modVehiculo():
@@ -146,6 +170,15 @@ def mostrarMantenimiento():
 
 #FUNCIONES DE CONSULTA
 #def planesM():
+
+#def genReservacion():
+
+#def cancelReservacion():
+
+#def consulReparacion():
+
+#def consulFacturacion():
+
 
 #def genReservacion():
 
