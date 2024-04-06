@@ -3,13 +3,13 @@ import datetime
 def inicio():
     while True:
         print("""
-       ⚛---------------------------------⚛   
-       ⚛ ¡BIENVENIDO! TALLER MECANICO GAF⚛
-       ⚛  Elija una opción:              ⚛
-       ⚛ 1. Opciones Administrativas.    ⚛
-       ⚛ 2. Consultas Técnicas.          ⚛
-       ⚛ 3. Salir.                       ⚛
-       ⚛---------------------------------⚛
+       |=================================|   
+       | ¡BIENVENIDO! TALLER MECANICO GAF|
+       |  Elija una opción:              |
+       | 1. Opciones Administrativas.    |
+       | 2. Consultas Técnicas.          |
+       | 3. Salir.                       |
+       |=================================|
         """)
         
         opcion = input("Selecciona una opción: ")
@@ -36,26 +36,34 @@ def menuAdmin():
             BaseDatos.cargarDato('vehiculo')
             print("Has ingresado exitosamente al menú TMG ¡BIENVENIDO!") 
 
-            print("Seleccione una de las opciones:")
-            print("1. Gestión Tipo De Vehículo ")
-            print("2. Gestión de Repuestos ")
-            print("3. Gestión Mano De Obra ")
-            print("4. Gestión Mantenimiento ")
-            print("5. Gestión Reparaciones ")
-            print("6. Facturar ")
-            print("7. Salir ")
+            print("""
+            =============================
+            |1. Gestión Tipo De Vehículo| 
+            |2. Gestión de Repuestos    |
+            |3. Gestión Mano De Obra    |
+            |4. Gestión Mantenimiento   |
+            |5. Gestión Reparaciones    |
+            |6. Facturar                |
+            |7. Salir                   |
+            =============================
+             """)
             opcion = input ("Digite una opción: ")
-
+                
             #VEHICULO
+            
             if  (opcion == "1"):
-                print ("GESTION DEL VEHICULO. ELIJA UNA OPCIÓN")
-                print("1. Agregar Vehículo. ")
-                print("2. Modificar Vehículo. ")
-                print("3. Mostrar Vehículo. ")
-                print("4. Eliminar Vehículo. ")
-                print("5. Salir. ")
+                print("""
+                ========================================
+                |GESTION DEL VEHICULO. ELIJA UNA OPCIÓN|
+                |1. Agregar Vehículo.                  |
+                |2. Modificar Vehículo.                |
+                |3. Mostrar Vehículo.                  |
+                |4. Eliminar Vehículo.                 |
+                |5. Salir.                             |
+                =========================================
+                """)
                 opcion = input ("Digite la opción que desea:")
-
+                    
                 if (opcion == "1"):
                     BaseDatos.agregarVehiculo()
                 elif(opcion == "2"):
