@@ -1,5 +1,11 @@
 import datetime
-
+"""
+Nombre: incio
+Entrada: Menú
+Salida: Da opción a entrar al menú opciones administrativas
+        o a la opción menú consulta además de salir
+Restricción: ° opción no puede ser mayor que 4
+"""
 def inicio():
     while True:
         print("""
@@ -23,6 +29,14 @@ def inicio():
             print("Error: ¡Opción ingresada no existe! Ingrese una opción válida.")
 
 #Validar Datos De Administrador
+"""
+Nombre: datosAdministrativos
+Entrada: Usuario Y Contraseña
+Salida: Valida los datos dentro del archivo usuarios.txt
+        para ingresar al menú administrativo
+Restricción: ° Usuario y contraseña debe ser diferente de vacío.
+             
+"""
 def datosAdministrativos():
     print("""
         ============================================================
@@ -31,50 +45,53 @@ def datosAdministrativos():
     """)
 
     usuario = input("Ingrese el  usuario: ")
-    print("\n")
     if (usuario != ""):
         contraseña = input(f"Ingrese la contraseña valida para el usuario {usuario}: ")
-        print("\n")
     
         if (contraseña != ""):
             buscarDato = f"{usuario},{contraseña}"
         
-            archivo = open("datos.txt", encoding = "utf-8", mode = "r")
+            archivo = open("usuarios.txt", encoding = "utf-8", mode = "r")
             datos = archivo.readline().strip()
             archivo.close()
 
-            encontrado = False
+            validar = False
+            
             for dato in  datos:
                 if  buscarDato ==  datos:
-                    encontrado = True
+                    validar = True
                     
-            if encontrado == True:
+            if validar == True:
                 print("==========================================")
-                print("¡Bienvenido!, MENU ADMINISTRATIVO TMG S.A")
+                print("               ¡Bienvenido!               ")
+                print("\n")
+                print("       MENU ADMINISTRATIVO TMG S.A        ")
                 print("==========================================")
                 
                 return menuAdmin()
             
             else:
-                print("#######################################################")
-                print("\n")
+                print("#############################################################")
                 print("Error: Datos ingresados no son correctos. Intentalo de nuevo.")
-                print("\n")
-                print("#######################################################")
+                print("#############################################################")
                 return datosAdministrativos()
             
         else:
-            print("=======================================")
-            print("\n")
+            
             print("Error: La contraseña debe ser diferente a vacío.")
             return datosAdministrativos()            
     else:
-        print("=======================================")
-        print("\n")
+       
         print("Error: El usuario debe ser diferente a vacío")
         return datosAdministrativos()
     
-
+"""
+Nombre: menuAdmin
+Entrada: Menú
+Salida: Retornará el menú con acceso administrador con cada tipo de gestión.
+Restricción: °Debe ser diferente de vacio.
+             °NO acepta opciones > 5
+"""
 
 def menuAdmin():
 
@@ -88,27 +105,22 @@ def menuAdmin():
         print("6. Facturar ")
         print("7. Salir ")
         opcion = input ("Digite una opción: ")
-        opcion = opcion.upper()
-        print("\n")
     
         if (opcion != ""):
-                
+            
+#GESTION VEHICULO                
             if opcion == "1":
-#VEHICULO
-                if  (opcion == "1"):
                     print ("GESTION DEL VEHICULO. ELIJA UNA OPCIÓN")
                     print("1. Agregar Vehículo. ")
                     print("2. Modificar Vehículo. ")
                     print("3. Mostrar Vehículo. ")
                     print("4. Eliminar Vehículo. ")
                     print("5. Salir. ")
-                        
-                    print("\n")
                     opcion = input ("Digite la opción que desea:")
                     if (opcion == "1"):
                         agregarVehiculo()
                     elif (opcion == "2"):
-                        modVehiculo()
+                        modificarVehiculo()
                     elif (opcion == "3"):
                         mostrarVehiculo()
                     elif (opcion == "4"):
@@ -117,61 +129,136 @@ def menuAdmin():
                         break
                     else:
                         print("Error: Opción no válida. Vuelva a ingresar una opción.")
-                    
-                elif opcion == "2":
+#GESTION REPUESTO    
+            elif opcion == "2":
                     print ("GESTION DE REPUESTOS. ELIJA UNA OPCIÓN")
                     print("1. Agregar Repuesto. ")
                     print("2. Modificar Repuesto. ")
                     print("3. Mostrar Repuesto. ")
                     print("4. Eliminar Repuesto. ")
                     print("5. Salir. ")
+                    
                     opcion = input ("Digite la opción que desea:")
                     
-                elif opcion == "3":
-                    return borrarProducto()
-
-                elif opcion == "4":
-                    return agregarInventario()
-                
-                elif opcion == "5":
-                    return ReportesInventario()
-                
-                elif opcion == "6":
-                    return menu()
-                
-                elif opcion == "7":
-                    return salir()
+                    if (opcion == "1"):
+                        agregarRepuesto()            
+                    elif (opcion == "2"):
+                        modificarRepuesto()
+                    elif (opcion == "3"):
+                        mostrarRepuesto()
+                    elif (opcion == "4"):
+                        eliminarRepuesto()
+                    elif (opcion == "5"):
+                        break
+                    else:
+                          print("Error: Opción no válida. Vuelva a ingresar una opción.")
+#GESTION MANO DE OBRA                    
+            elif opcion == "3":
+                    print ("GESTION DE MANO DE OBRA. ELIJA UNA OPCIÓN")
+                    print("1. Agregar Mano De Obra. ")
+                    print("2. Modificar Mano De Obra. ")
+                    print("3. Mostrar Mano De Obra. ")
+                    print("4. Eliminar Mano De Obra. ")
+                    print("5. Salir. ")
                     
-                else:
-                    print("=======================================")
-                    print("\n")
-                    print("Error: Opción no reconocida")
-                    return menuAdmin()
+                    opcion = input ("Digite la opción que desea:")
+                    if (opcion == "1"):
+                        agregarManoObra()
+                    elif (opcion == "2"):
+                        modificarManoObra()
+                    elif (opcion == "3"):
+                        mostrarManoObra()
+                    elif (opcion == "4"):
+                        eliminarManoObra()
+                    elif (opcion == "5"):
+                        break
+                    else:
+                        print("Error: Opción no válida. Vuelva a ingresar una opción.")
+#GESTION MANTENIMIENTO
+            elif opcion == "4":
+                    print ("GESTION DE MANTENIMIENTO. ELIJA UNA OPCIÓN")
+                    print("1. Agregar Mantenimiento.  ")
+                    print("2. Modificar Mantenimiento.")
+                    print("3. Mostrar Mantenimiento.  ")
+                    print("4. Eliminar Mantenimiento. ")
+                    print("5. Salir.                  ")
+                    
+                    opcion = input ("Digite la opción que desea:")
+
+                    if (opcion == "1"):
+                        agregarMantenimiento()
+                    elif (opcion == "2"):
+                        modificarMantenimiento()
+                    elif (opcion == "3"):
+                        mostrarMantenimiento()
+                    elif (opcion == "4"):
+                        eliminarMantenimiento()
+                    elif (opcion == "5"):
+                        break
+                    else:
+                        print("Error: Opción no válida. Vuelva a ingresar una opción.")
+#GESTION REPARACION
+            elif opcion == "5":
+                    print ("GESTION DE REPARACIONES. ELIJA UNA OPCIÓN")
+                    print("1. Reservar Reparación.")
+                    print("2. Modificar Reparación. ")
+                    print("3. Eliminar Reparación. ")
+                    print("4. Salir. ")
+                    
+                    opcion = input ("Digite la opción que desea:")
+                    if (opcion == "1"):
+                        reservarReparacion()
+                    elif (opcion == "2"):
+                        modificarReparacion()
+                    elif (opcion == "3"):
+                        mostrarReparacion()
+                    elif (opcion == "4"):
+                        break
+                    
+#FACTURACION
+            elif opcion == "6":
+                     print ("GESTION DE FACTURACIÓN. ELIJA UNA OPCIÓN")
+                     print ("1. Mostrar Factura.")
+                     
+                     
+                
+            elif opcion == "7":
+                break
+            else:
+                print("Error: Opción no reconocida")
+                return menuAdmin()
         else:
-            print("=======================================")
-            print("\n")
             print("Error: El parámetro de entrada no debe ser vacio")
             return menuAdmin()    
 
 #FUNCION AGREGAR PARA TODAS LAS GESTIONES#
 
+"""
+Nombre: agregarVehiculo
+Entrada: Vehiculos
+Salida: la funcion agregará los tipos de vehiculos y sus especificaciones
+        en el archivo "Vehiculos.txt".
+Restrición: °Debe ser diferente de vacío
+            °Los pasajeros y los ejes deben ser enteros
+"""
+
 def agregarVehiculo():
 
     print("=======================================")
-    print("            Agregar Vehiculo          ")
+    print("            Agregar Vehiculo           ")
     print("=======================================")
-
-    codigo = codigo_Aux()
+    print("""     >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+                  |En este modo podrás agregar, modificar y eliminar|
+                  |  los vehículos que vos querás además de ver     |
+                  |   si los que ya se encuentran disponibles       |
+                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< """)
     print("\n")
     tipoVehiculo = input("Ingrese el tipo de vehículo que desea ingresar: ")
-    tipoVehiculo = tipoVehiculo.title()
-    print("\n")
+    
     pasajeros= input("Ingrese la cantidad de pasajeros que contiene el vehículo: ")
 
-    print("\n")
     ejes = input("Ingrese la cantidad de ejes del vehículo: ")
     
-
     if (tipoVehiculo != "") and (pasajeros != "") and (ejes != ""):
 
         try:
@@ -182,7 +269,7 @@ def agregarVehiculo():
             return agregarVehiculo()
         else:
         
-            infoVehiculo = f"{codigo};{tipoVehiculo};{pasajeros};{ejes}"
+            infoVehiculo = f"{tipoVehiculo}|{pasajeros}|{ejes}"
 
             archivo = open("Vehiculo.txt", encoding = "utf-8", mode = "r")
             lineas = archivo.readlines()
@@ -194,18 +281,20 @@ def agregarVehiculo():
 
                 for linea in lineas:
                 
-                    cont = linea.strip().split(";")
-                    encontrar = cont[1]
+                     lineaConten = linea.split("|")
+                     encontrar =  lineaConten[0]
 
-                    if tipoVehiculo == encontrar:
+                     if tipoVehiculo == encontrar:
                         encontrado = True
-                        print(f" se encontró un tipo de vehiculo con el nombre {tipoVehiculo},")
-                        print("Porfavor ingresa otro tipo de vehículo o modificalo.")
+                        print(f"""
+                                      se encontró un tipo de vehiculo con el nombre {tipoVehiculo}.
+                                          Porfavor ingresa otro tipo de vehículo o modificalo.
+                        """)
                         return menuAdmin()
 
             if encontrado == False:
                 archivo = open("Vehiculo.txt", encoding = "utf-8", mode = "a")
-                archivo.write(f"{infoVehiculo}")
+                archivo.write(f"{infoVehiculo}"+("\n"))
                 archivo.close()
             print("¡Vehiculo agregado con exito!")
             return menuAdmin()
@@ -213,21 +302,34 @@ def agregarVehiculo():
     else:
         print("Error: Los parámetros de entrada no deben ser vacios")
         return agregarVehiculo()
-    ##########################################################################
-    def agregarRepuesto():
-
+    
+##########################################################################
+"""
+|========================================================================|
+|Nombre: agregarRepuesto                                                 |
+|Entrada: Repuestos                                                      |
+|Salida: Agregará los repuestos con su costo y precio                    |
+|        en un archivo txt llamado "repuestos.txt"                       |
+|Restricción: °Variables deben ser diferentes de vacío                   |
+|             °El costo de compra y el precio de venta deben ser enteros.|
+|========================================================================|             
+"""
+def agregarRepuesto():
+        
         print("=======================================")
-        print("            Agregar Repuesto          ")
+        print("            Agregar Repuesto           ")
         print("=======================================")
-
-        codigo = codigo_Aux()
-       
+        print (""">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+                  |En este modo podrás agregar, modificar y eliminar|
+                  |  los repuestos que vos querás además de ver     |
+                  |   si los que ya se encuentran disponibles       |
+                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< """)
+        print("\n")
         nombreR = input("Ingrese el nombre del repuesto que desea ingresar: ")
         nombreR = nombreR.title()
         
         costoCompra= input("Ingrese el costo del repuesto: ")
-
-        print("\n")
+        
         precioVenta = input("Ingrese el precio de venta para el repuesto: ")
         
 
@@ -241,7 +343,7 @@ def agregarVehiculo():
                 return agregarRepuesto()
             else:
             
-                infoRepuesto = f"{codigo};{tipoVehiculo};{pasajeros};{ejes}"
+                infoRepuesto = f"{nombreR}|{costoCompra}|{precioVenta}"
 
                 archivo = open("repuestos.txt", encoding = "utf-8", mode = "r")
                 lineas = archivo.readlines()
@@ -253,10 +355,10 @@ def agregarVehiculo():
 
                     for linea in lineas:
                     
-                        cont = linea.strip().split(";")
-                        encontrar = cont[1]
+                         lineaConten = linea.split("|")
+                         encontrar =  lineaConten[0]
 
-                        if nombreR == encontrar:
+                         if nombreR == encontrar:
                             encontrado = True
                             print(f" se encontró un tipo de repuesto con el nombre {nombreR},")
                             print("Porfavor ingresa otro tipo de repuesto o modificalo.")
@@ -264,44 +366,61 @@ def agregarVehiculo():
 
                 if encontrado == False:
                     archivo = open("repuestos.txt", encoding = "utf-8", mode = "a")
-                    archivo.write(f"{nombreR}")
+                    archivo.write(f"{nombreR}"+("\n"))
                     archivo.close()
-                print("¡Repuesto fue agregado con exito!")
-                return menuAdmin()
+                    print("¡Repuesto fue agregado con exito!")
+                    return menuAdmin()
             
         else:
             print("Error: Los parámetros de entrada no deben ser vacios")
-            return agregarRepuesto() 
+            return agregarRepuesto()
+        
 ############################################################################################
+
+"""
+|========================================================================|
+|Nombre: agregarManoObra                                                 |
+|Entrada: Mano De Obras                                                  |
+|Salida: Agregará los mecanicos disponibles con su tiempo de ejecución   |
+|         y precio final de mano de obra en un archivo txt llamado       |
+|         "manoDeObra.txt"                                                |
+|                                                                        |
+|Restricción: °Variables deben ser diferentes de vacío                   |
+|             °El costo de compra y el precio de venta deben ser enteros.|
+|========================================================================|             
+"""
+
 def agregarManoObra():
         print("=======================================")
         print("         Agregar Mano De Obra          ")
         print("=======================================")
-
-        codigo = codigo_Aux()
-       
-        nombreR = input("Ingrese el nombre del repuesto que desea ingresar: ")
-        nombreR = nombreR.title()
+        print(""" >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+                  |En este modo podrás agregar, modificar y eliminar|
+                  |acciones de mano de obra que vos querás además   |
+                  |de ver si se encuentran disponibles              |
+                  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+                """)
         
-        costoCompra= input("Ingrese el costo del repuesto: ")
+        nombreMeca = input("Ingrese el nombre del mecánico a cargo: ")
+        nombreMeca = nombreMeca.title()
+        
+        tiempoEjecucion= input("Ingrese la duración del proceso de ejecución: ")
 
-        print("\n")
-        precioVenta = input("Ingrese el precio de venta para el repuesto: ")
+        precioManoObra = input("Ingrese el precio final de la mano de obra: ")
         
 
-        if (nombreR != "") and (costoCompra != "") and (precioVenta != ""):
+        if (nombreMeca!= "") and (tiempoEjecucion != "") and (precioManoObra != ""):
 
             try:
-                costoCompra = int(costoCompra)
-                precioVenta = int(precioVenta)
+                tiempoEjecucion = int(tiempoEjecucion)
+                precioManoObra = int(precioManoObra)
             except:
-                print("Error: Se debe colocar un valor númerico para el costo del repuesto o el precio de venta del mismo.")
-                return agregarRepuesto()
-            else:
+                print("Error: Se debe colocar un valor númerico para el tiempo de ejecucion, así como el precio de la mano de obra.")
+                return agregarManoObra()
+        else:
             
-                infoRepuesto = f"{codigo};{tipoVehiculo};{pasajeros};{ejes}"
-
-                archivo = open("repuestos.txt", encoding = "utf-8", mode = "r")
+                infoMano = f"{nombreMeca}|{tiempoEjecucion}|{precioManoObra}"
+                archivo = open("manoDeObra.txt", encoding = "utf-8", mode = "r")
                 lineas = archivo.readlines()
                 archivo.close()
 
@@ -311,111 +430,151 @@ def agregarManoObra():
 
                     for linea in lineas:
                     
-                        cont = linea.strip().split(";")
-                        encontrar = cont[1]
+                         lineaConten = linea.split("|")
+                         encontrar =  lineaConten[0]
 
-                        if nombreR == encontrar:
+                         if nombreMeca == encontrar:
                             encontrado = True
-                            print(f" se encontró un tipo de repuesto con el nombre {nombreR},")
-                            print("Porfavor ingresa otro tipo de repuesto o modificalo.")
+                            print(f" se encontró un mecanico con el nombre {nombreMeca},")
+                            print("Porfavor ingresa otro tipo de mecaníco o modificalo ya que este se encuentra ocupado." )
                             return menuAdmin()
 
-                if encontrado == False:
-                    archivo = open("repuestos.txt", encoding = "utf-8", mode = "a")
-                    archivo.write(f"{nombreR}")
-                    archivo.close()
-                print("¡Repuesto fue agregado con exito!")
-                return menuAdmin()
+                         if encontrado == False:
+                            archivo = open("manoDeObra.txt", encoding = "utf-8", mode = "a")
+                            archivo.write(f"{nombreMeca}"+("\n"))
+                            archivo.close()
+                            print("¡El mecánico {nombreMeca}, fue agregado con exito!")
+
+                            return menuAdmin()
+                        
+                         else:
+                            print("Error: Los parámetros de entrada no deben ser vacios")
+                            return agregarManoObra() 
+
+############################################################################################
+
+    
+def agregarMantenimiento():
+        print("=======================================")
+        print("     Agregar Plan De Mantenimiento     ")
+        print("=======================================")
+
+       
+        tipoMantenimiento = input("Ingrese el tipo de mantenimiento que desea realizar: ")
+        tipoMantenimiento = tipoMantenimiento.title()
+        
+        tipoVehiculo= input("Ingrese el tipo de vehiculo que desea poner en mantenimiento: ")
+
+        contenidoPlan = input("Ingrese los repuestos que quieres que contenga este plan:")
+        opcion = input("¿ Deseas agregar otro repuesto (Si/No)?: ")
+        opcion = opcion.capitalize()
+
+        if opcion == "Si":
             
+        elif opcion == "No":
+            precioMantenimiento = input("Ingrese el precio para este plan: ")
+        else:
+            print("Error: Digite una opción válida. opciones son :(Si/No)")
+        
+        
+        
+        if (tipoMantenimiento != "") and (tipoVehiculo != "") and (precioMantenimiento):
+                    
+                    
+                infoMantenimiento = f"{tipoMantenimiento}|{tipoVehiculo}|{precioMantenimiento}"
+                archivo = open("mantenimiento.txt", encoding = "utf-8", mode = "r")
+                lineas = archivo.readlines()
+                archivo.close()
+                if lineas != "":
+                    encontrado = False
+                    
+                    for linea in lineas:            
+                        lineaConten = linea.split("|")
+                        encontrar =  lineaConten[0]
+
+                        if tipoMantenimiento == encontrar:
+                            encontrado = True
+                            print(f" se encontró un Plan de mantenimiento  con el nombre {tipoMantenimiento}, Porfavor ingresa otro tipo de repuesto o modificalo.")
+                            return menuAdmin()
+                            archivoV = open("vehiculo.txt", encoding = "utf-8", mode = "r")
+                            lineasV = archivoV.readlines()
+                            archivoV.close()
+                            vehEncontrado = False
+                            for lineaV in lineasV:
+                                lineaVeh = lineaV.split(";")
+                                vehEncontrar = lineaVeh[0]
+                                if tipoVehiculo != vehEncontrar:
+                                    vehEncontrado = False
+                                    print("""
+                                            Error: Tipo de vehiculo No existe en el sistema. Agregalo al sistema para poder añadirlo a un plan.
+
+                                                            |<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>|
+                                                            |REDIRIGIENDO AL MENU ADMINISTRADOR...|
+                                                            |=====================================|
+                                    """)
+                                return(menuAdmin)
+                
+
+                if encontrado == False:
+                    archivo = open("mantenimiento.txt", encoding = "utf-8", mode = "a")
+                    archivo.write(f"Plan De Mantenimiento: {tipoMantenimiento}\t| Tipo De Vehículo: {tipoVehiculo}\t| Precio Del Plan {precioMantenimiento}"+("\n"))
+                    archivo.close()
+                    print("¡El plan de mantenimiento fue agregado con exito!")
+                    return menuAdmin()
         else:
             print("Error: Los parámetros de entrada no deben ser vacios")
-            return agregarRepuesto() 
+            return agregarMantenimiento()
+#################################################################
 
-
-"--------------------------------------------------------------------------------"
-
-"""
-Nombre: modificarProducto
-Entrada: código
-Salida: La posibilidad de poder modificar el nombre del producto, categorías
-        y precio unitario.
-Restricciones:
-             ¬ El código debe ser existente y valido (númerico)
-             
-"""
-
-def modificarProducto():
+def modificarVehiculo():
     
-    print("\n")
     print("=======================================")
-    print("\n")
-    print("          Modificar Producto           ")
-    print("\n")
+    print("          Modificar Vehiculo           ")
     print("=======================================")
-    print("\n")
 
-    mostrar = mostrar_Auxi()
-    print("\n") 
-    codigo = input("Digite el código de la línea a modificar: ")
+    mostrar = mostrar_Aux() 
+    tipoVehiculo = input("Ingrese el tipo del vehiculo que desea modificar: ")
     print("\n")
     
-    if (codigo != ""):
+    if (tipoVehiculo != ""):
         try:
-            codigo = int(codigo)
+            tipoVehiculo = str(tipoVehiculo)
         except:
-            print("Error: El código ingresedo debe ser númerico")
-            return modificarProducto()
+            print("Error: El vehículo ingresado debe ser String.")
+            return modificarVehiculo()
         else:
-            if codigo < 0:
-                print("=======================================")
-                print("\n")
-                print("Error: El codigo no puede ser negativo.")
-                return modificarProducto()
-            
-            archivo = open("Inventario.txt", encoding="utf-8", mode="r")
+            archivo = open("vehiculo.txt", encoding="utf-8", mode="r")
             lineas = archivo.readlines()
             archivo.close()
 
-            nuevasLineas = []
-            modificarLinea = False
+            lineasNuevas = []
+            lineaMod = False
 
             for linea in lineas:
-                codigoLinea = int(linea.split(';')[0])  
+                vehiculoLinea = (linea.split(';')[0])  
                 
-                if codigoLinea == codigo:
-                    modificarLinea = True
-
-                    print("=======================================")
-                    print("\n")
-                    print("La linea a modificar es: ")
-                    print("\n")
-                    print(linea)
-                    print("\n")
-                    print("=======================================")
-                    print("\n")
-    
-                    producto = input("Ingrese el nombre del producto que\ndeseas agregar a tu inventario: ")
-                    producto = producto.title()
-                    print("\n")
-                    categoria = input("Ingrese la categoría del producto que\ndeseas agregar a tu inventario: ")
-                    categoria = categoria.capitalize()
-                    print("\n")
-                    precioUnitario = input("Ingrese el valor unitario del producto que\ndeseas agregar a tu inventario: ")
-                    cantidad = (linea.split(';')[4])  
-                    print("\n")
+                if vehiculoLinea == tipoVehiculo:
+                    lineaMod = True
                     
-                    if (producto != "") and (categoria != "") and (precioUnitario != ""):
+                    print("Estas a punto de modificar la línea: ")
+    
+                    tipoVehiculo = input("Ingrese el nombre del vehiculo que deseas modificar: ")
+                    tipoVehiculo = tipoVehiculo.title()
+                
+                    cantPasajeros = input("Ingrese la cantidad de pasajeros que deseas modificar: ")
+                    cantEjes = input("Ingrese la cantidad de ejes que contiene este vehiculo a modificar: ")
+                    
+                    if (tipoVehiculo != "") and (cantPasajeros != "") and (cantEjes != ""):
 
                         try:
-                            precioUnitario = int(precioUnitario)
+                            cantEjes = int(cantEjes)
+                            cantPasajeros = int(cantpasajeros)
                         except:
-                            print("=======================================")
-                            print("\n")
-                            print("Error: debes ingresar un valor númerico para el precio")
-                            return modificarProducto()
+                            print("Error: debes ingresar un valor númerico para la cantidad de ejes y pasajeros")
+                            return modificarVehiculo()
                         else:
                             
-                            archivo = open("Inventario.txt", encoding = "utf-8", mode = "r")
+                            archivo = open("Vehiculo.txt", encoding = "utf-8", mode = "r")
                             lineas = archivo.readlines()
                             archivo.close()
 
@@ -425,189 +584,697 @@ def modificarProducto():
 
                                 for linea in lineas:
                 
-                                    contenido = linea.strip().split(";")
-                                    productoBuscar = contenido[1]
+                                     lineaConten = linea.strip().split(";")
+                                     buscar =  lineaConten[1]
                                     
-                                    if producto == productoBuscar or codigoLinea != codigo:
+                                     if tipoVehiculo == Buscar:
                                         encontrado = True
-                                        print("=======================================")
-                                        print("\n")
-                                        print(f"Se ha encontrado un producto registrado con el nombre {producto}")
-                                        print("El registro es: ")
-                                        print("\n")
+                                        print(f"Se ha encontrado un tipo de vehiculo llamado {tipoVehiculo}, registrado como:")
                                         print(linea)
-                                        print("\n")
-                                        print("Modifica este registro o ingresa otro producto")
-                                        print("\n")
-                                        return inventario()
+                                        print("Modificalo o ingresa otro tipo")
+                    
+                                        return menuAdmin()
 
                                 if encontrado == False:
                             
-                                    nuevaLinea = f"{codigo};{producto};{categoria};{precioUnitario};{cantidad}"
-                                    nuevasLineas += [nuevaLinea]
+                                    lineaNueva = f"{tipoVehiculo};{cantPasajeros};{CantEjes}"
+                                    lineasNuevas += [lineaNueva]
                     else:
-                        print("=======================================")
-                        print("\n")
-                        print("Error: Los parámetros de entrada no deben ser vacios")
-                        return modificarProducto()
+                        print("Error: Los parámetros de entrada deben ser diferentes de vacio")
+                        return modificarVehiculo()
                             
                 else:
                     nuevasLineas += [linea]
 
-            if modificarLinea == True:
+            if lineaMod == True:
                 
-                archivo = open("Inventario.txt",encoding="utf-8", mode = 'w')
-                archivo.writelines(nuevasLineas)
+                archivo = open("vehiculo.txt",encoding="utf-8", mode = 'w')
+                archivo.writelines(lineasNuevas)
                 archivo.close()
                 
-                print("=======================================")
-                print("\n")
-                print(f"La línea con código {codigo} ha sido modificada con éxito.")
-                return inventario()
+                print(f" El tipo de vehículo {tipoVehiculo} se ha modificado exitosamente.")
+                return menuAdmin()
             
             else:
-                print("=======================================")
-                print("\n")
-                print(f"No se encontró ninguna línea con código {codigo} en el inventario.")
-                return modificarProducto()
-    else:
-        print("=======================================")
-        print("\n")  
-        print("Error: El código no debe ser vacio")
-        return modificarProducto()
+                
+                print(f"No se encontró ningún tipo de vehiculo con ese nombre dentro del archivo.")
+                return modificarVehiculo()
+    else: 
+        print("Error: El tipo de vehiculo debe ser diferente a vacio")
+        return modificarVehiculo()
+#################################################################
+
+def modificarRepuesto():
     
-"--------------------------------------------------------------------------------"
+    print("=======================================")
+    print("          Modificar Repuesto           ")
+    print("=======================================")
 
-"""
-Nombre: borrarProducto
-Entrada: código
-Salida: La posibilidad de poder borrar la linea con el código 
-Restricciones:
-             ¬ El código debe ser existente y valido (númerico positivo)
-             
-"""
-
-def borrarProducto():
+    mostrar = mostrar_Aux() 
+    nombreR = input("Ingrese el nombre del repuesto que desea modificar: ")
     
-    print("\n")
-    print("=======================================")
-    print("\n")
-    print("          Borrar Producto              ")
-    print("\n")
-    print("=======================================")
-    print("\n")
-
-    mostrar = mostrar_Auxi()
-    print("\n")
-    codigo = input("Digite el código de la línea a borrar: ")
-    print("\n")
-
-    if (codigo != ""):
+    if (nombreR != ""):
         try:
-            codigo = int(codigo)
+            nombreR = str(nombreR)
         except:
-            print("=======================================")
-            print("\n")
-            print("Error: El código ingresedo debe ser númerico")
-            return borrarProducto()
-        else:  
-            if codigo < 0:
-                print("=======================================")
-                print("\n")
-                print("Error: El codigo no puede ser negativo.")
-                return borrarProducto()
-            
-            archivoI = open("Inventario.txt", encoding="utf-8", mode="r")
-            lineasI = archivoI.readlines()
-            archivoI.close()
+            print("Error: El vehículo ingresado debe ser String.")
+            return modificarRepuesto()
+        else:
+            archivo = open("repuestos.txt", encoding="utf-8", mode="r")
+            lineas = archivo.readlines()
+            archivo.close()
 
-            archivoFD = open("FacturasDetalle.txt", encoding="utf-8", mode="r")
-            lineasFD = archivoFD.readlines()
-            archivoFD.close()
+            nuevasLineas = []
+            lineaMod = False
+
+            for linea in lineas:
+                repuestoLinea = (linea.split(';')[0])  
+                
+                if repuestoLinea == nombreR:
+                    lineaMod = True
+                    
+                    print("Estas a punto de modificar la línea: ")
+    
+                    nombreR = input("Ingrese el nombre del repuesto que deseas modificar: ")
+                    nombreR = nombreR.title()
+                
+                    costoCompra = input("Ingrese el costo de la compra a modificar: ")
+                    precioVenta = input("Ingrese el precio de venta a modificar: ")
+                    
+                    if ( nombreR != "") and (costoCompra != "") and (precioVenta != ""):
+
+                        try:
+                            costoCompra = int(costoCompra)
+                            precioVenta = int(precioVenta)
+                        except:
+                            print("Error: debes ingresar un valor númerico para la cantidad de ejes y pasajeros")
+                            return modificarRepuesto()
+                        else:
+                            
+                            archivo = open("repuestos.txt", encoding = "utf-8", mode = "r")
+                            lineas = archivo.readlines()
+                            archivo.close()
+
+                            if lineas != "":
+            
+                                encontrado = False
+
+                                for linea in lineas:
+                
+                                    lineaContent = linea.strip().split(";")
+                                    buscar =  lineaContent[1]
+                                    
+                                    if nombreR == Buscar:
+                                        encontrado = True
+                                        print(f"Se ha encontrado un repuesto llamado {nombreR}, registrado como:")
+                                        print(linea)
+                                        print("Modificalo o ingresa otro tipo")
+                    
+                                        return menuAdmin()
+
+                                if encontrado == False:
+                            
+                                    lineaNueva = f"{nombreR};{costoCompra};{precioVenta}"
+                                    lineasNuevas += [lineaNueva]
+                    else:
+                        print("Error: Los parámetros de entrada deben ser diferentes de vacio")
+                        return modificarRepuesto()
+                            
+                else:
+                    nuevasLineas += [linea]
+
+            if lineaMod == True:
+                
+                archivo = open("repuestos.txt",encoding="utf-8", mode = 'w')
+                archivo.writelines(lineasNuevas)
+                archivo.close()
+                
+                print(f" El tipo de repuesto {nombreR} se ha modificado exitosamente.")
+                return menuAdmin()
+            
+            else:
+                
+                print(f"No se encontró ningún tipo de repuesto con ese nombre dentro del archivo.")
+                return modificarRepuesto()
+    else: 
+        print("Error: El tipo de repuesto debe ser diferente a vacio")
+        return modificarRepuesto()
+#################################################################
+
+def modificarManoObra():
+    
+    print("=======================================")
+    print("          Modificar Mano De Obra           ")
+    print("=======================================")
+
+    mostrar = mostrar_Aux() 
+    nombreMeca = input("Ingrese el nombre del mecánico que desea modificar: ")
+    
+    if (nombreMeca != ""):
+        try:
+            nombreMeca = str(nombreMeca)
+        except:
+            print("Error: El nombre del mecánico ingresado no debe ser numérico.")
+            return modificarManoObra()
+        else:
+            archivo = open("manoDeObra.txt", encoding="utf-8", mode="r")
+            lineas = archivo.readlines()
+            archivo.close()
+
+            nuevasLineas = []
+            lineaMod = False
+
+            for linea in lineas:
+                manoObraLinea = (linea.split(';')[0])  
+                
+                if manoObraLinea == nombreMeca:
+                    lineaMod = True
+                    
+                    print("Estas a punto de modificar la línea: ")
+    
+                    nombreMeca = input("Ingrese el nombre del repuesto que deseas modificar: ")
+                    nombreMeca = nombreR.title()
+                
+                    tiempoEjecucion = input("Ingrese el tiempo de ejeución a modificar: ")
+                    precioManoObra = input("Ingrese el precio de venta a modificar: ")
+                    
+                    if ( nombreMeca != "") and (tiempoEjecucion != "") and (precioManoObra != ""):
+
+                        try:
+                           tiempoEjecucion = int(tiempoEjecucion)
+                           precioManoObra = int(precioManoObra)
+                        except:
+                            print("Error: debes ingresar un valor númerico para el tiempo de ejecución y el precio de mano de obra.")
+                            return modificarManoObra()
+                        else:
+                            
+                            archivo = open("manoDeObra.txt", encoding = "utf-8", mode = "r")
+                            lineas = archivo.readlines()
+                            archivo.close()
+
+                            if lineas != "":
+            
+                                encontrado = False
+
+                                for linea in lineas:
+                
+                                    lineaContent = linea.strip().split(";")
+                                    buscar =  lineaContent[1]
+                                    
+                                    if nombreMeca == Buscar:
+                                        encontrado = True
+                                        print(f"Se ha encontrado un nombre de mecánico con el nombre{nombreMeca}, registrado como:")
+                                        print(linea)
+                                        print("Modificalo o ingresa otro nombre, ya que este no se encuentra disponible.")
+                    
+                                        return menuAdmin()
+
+                                if encontrado == False:
+                            
+                                    lineaNueva = f"{nombreR};{costoCompra};{precioVenta}"
+                                    lineasNuevas += [lineaNueva]
+                    else:
+                        print("Error: Los parámetros de entrada deben ser diferentes de vacio")
+                        return modificarManoObra()
+                            
+                else:
+                    nuevasLineas += [linea]
+
+            if lineaMod == True:
+                
+                archivo = open("manoDeObra.txt",encoding="utf-8", mode = 'w')
+                archivo.writelines(lineasNuevas)
+                archivo.close()
+                
+                print(f" El nombre del mecánico {nombreMeca} se ha modificado exitosamente.")
+                return menuAdmin()
+            
+            else:
+                
+                print(f"No se encontró ningún mecánico con ese nombre dentro del archivo.")
+                return modificarManoObra()
+    else: 
+        print("Error: El nombre del mecánico debe ser diferente a vacio")
+        return modificarManoObra()
+    ##########################################################################################################################3
+def modificarMantenimiento():
+    
+    print("=======================================")
+    print("          Modificar Mantenimiento      ")
+    print("=======================================")
+
+    mostrar = mostrar_Aux() 
+    tipoMantenimiento = input("Ingrese el tipo de mantenimiento que desea modificar: ")
+    
+    if (tipoMantenimiento != ""):
+        try:
+            tipoMantenimiento = str(tipoMantenimiento)
+        except:
+            print("Error: El tipo de mantenimiento debe ser numérico.")
+            return modificarMantenimiento()
+        else:
+            archivo = open("mantenimiento.txt", encoding="utf-8", mode="r")
+            lineas = archivo.readlines()
+            archivo.close()
+
+            nuevasLineas = []
+            lineaMod = False
+
+            for linea in lineas:
+                mantenimientoLinea = (linea.split(';')[0])  
+                
+                if mantenimientoLinea == tipoMantenimiento:
+                    lineaMod = True
+                    
+                    print("Estas a punto de modificar la línea: ")
+    
+                    tipoMantenimiento = input("Ingrese el tipo de mantenimiento que deseas modificar: ")
+                    tipoMantenimiento= nombreR.title()
+                
+                    tipoVehiculo = input("Ingrese el tipo de vehículo a modificar: ")
+                    precioMantenimiento = input("Ingrese el precio del plan de mantenimiento a modificar: ")
+                    
+                    if ( tipoMantenimiento != "") and (tipoVehiculo != "") and (precioMantenimiento != ""):
+
+                        try:
+                            precioMantenimiento = int(precioMantenimiento)
+                        except:
+                            print("Error: debes ingresar un valor númerico para el precio de mantenimiento.")
+                            return modificarMantenimiento()
+                        else:
+                            
+                            archivo = open("mantenimiento.txt", encoding = "utf-8", mode = "r")
+                            lineas = archivo.readlines()
+                            archivo.close()
+
+                            if lineas != "":
+            
+                                encontrado = False
+
+                                for linea in lineas:
+                
+                                    lineaContent = linea.strip().split(";")
+                                    buscar =  lineaContent[1]
+                                    
+                                    if nombreMeca == Buscar:
+                                        encontrado = True
+                                        print(f"Se ha encontrado un plan de mantenimiento con el nombre{tipoMantenimiento}, registrado como:")
+                                        print(linea)
+                                        print("Modificalo o ingresa otro plan de mantenimiento, ya que este no se encuentra disponible.")
+                    
+                                        return menuAdmin()
+
+                                if encontrado == False:
+                            
+                                    lineaNueva = f"{tipoMantenimiento};{tipoVehiculo};{precioMantenimiento}"
+                                    lineasNuevas += [lineaNueva]
+                    else:
+                        print("Error: Los parámetros de entrada deben ser diferentes de vacio")
+                        return modificarMantenimiento()
+                            
+                else:
+                    nuevasLineas += [linea]
+
+            if lineaMod == True:
+                
+                archivo = open("mantenimiento.txt",encoding="utf-8", mode = 'w')
+                archivo.writelines(lineasNuevas)
+                archivo.close()
+                
+                print(f" El plan de mantenimiento {tipoMantenimiento} se ha modificado exitosamente.")
+                return menuAdmin()
+            
+            else:
+                
+                print(f"No se encontró ningún tipo de mantenimiento con ese nombre dentro del archivo.")
+                return modificarMantenimiento()
+    else: 
+        print("Error: El tipo de mantenimiento debe ser diferente a vacio")
+        return modificarMantenimiento()
+######################################################################################################################################################################
+def eliminarVehiculo():
+    print("=======================================")
+    print("           Eliminar Vehiculo           ")
+    print("=======================================")
+
+    mostrar = mostrar_Aux()
+    tipoVehiculo = input("Digite el tipo de vehiculo de el dato que desea eliminar: ")
+
+    if (tipoVehiculo != ""):
+        try:
+            tipoVehiculo = str(tipoVehiculo)
+        except:
+            print("Error: El tipo de vehiculo NO debe ser numerico")
+            return eliminarVehiculo()
+        else:
+            
+            archivo = open("vehiculo.txt", encoding="utf-8", mode="r")
+            lineasV = archivo.readlines()
+            archivo.close()
+                    
+
+            archivoFact = open("Facturas.txt", encoding="utf-8", mode="r")
+            lineasFact = archivoFact.readlines()
+            archivoFact.close()
             
             nuevasLineas = []
-            borrarLinea = False
-
-            facturado = False
-            for lineaI in lineasI:
-                contenidoI = lineaI.split(';')
-                codigoLineaI = int(contenidoI[0])
+            eliminarLineas = False
+            registradoFact = False
+            
+            for lineaV in lineasV:
+                vehiculoConten = lineaV.split(';')
+                lineaVeh = (vehiculoConten[0])
                 
-                if codigoLineaI == codigo:
+                if lineaVeh == tipoVehiculo:
 
-                    productoI = contenidoI[1]
+                    for lineaFact in lineasFact:
+                        facturaContent = lineaFact.split(',')
+                        vehiculoFact = facturaContent[2]
 
-                    for lineaFD in lineasFD:
-                        contenidoFD = lineaFD.split(',')
-                        productoFD = contenidoFD[2]
+                        if lineaVeh == vehiculoFact:
+                            registradoFact = True
 
-                        if productoI == productoFD:
-                            facturado = True
-
-                        if facturado == True:
-                            print(f"\nEl código {codigo} le pertenece al producto {productoFD} el cual está facturado, por normativa,")
-                            print("no es posible efectuar la eliminación de este producto en el inventario. Por favor, ingrese otro")
-                            print("código a borrar.")
-                            return borrarProducto()
-
-                    print("=======================================")
-                    print("\n")
-                    print("La linea a borrar es: ")
-                    print("\n")
-                    print(lineaI)
-                    print("\n")
-                    print("=======================================")
-                    print("\n")
-
-                    confirmacion = input("¿Estás seguro que deseas borrar esta línea? (Y/N): ")
-                    confirmacion = confirmacion.capitalize()
-                    print("\n")
+                        if registradoFact == True:
+                            print(f" El vehículo {tipoVehiculo} concuerda con la factura {vehiculoFact} por lo que no se puede eliminar este vehiculo. ingresa otro vehiculo")
+                            return eliminarVehiculo()
+                    print("Se eliminara la siguiente linea: ")
+                    print(lineaV)
                     
-                    if confirmacion == "Y":
-                        print("=======================================")
-                        print("\n")
-                        print(f"La línea con código {codigo} ha sido borrada con éxito.")
-                        print("\n")
-                        print("=======================================")
-                        print("\n")
-                        borrarLinea = True
+                    validacion = input("¿Estás seguro en eliminar esta linea? (Si/No): ")
+                    validacion = vaidacion.capitalize()
+                    
+                    if validacion == "Si":
+                        print("#################################################################")
+                        print(f"¡La línea con el vehiulo {tipoVehiculo} se elimino exitosamente!")
+                        print("#################################################################")
                         
-                    elif confirmacion == "N":
-                        print("=======================================")
-                        print("\n")
-                        print(f"La línea con código {codigo} no ha sido borrada.")
-                        print("\n")
-                        print("=======================================")
-                        print("\n")
-                        return inventario()
+                        eliminarLinea = True
+                        
+                    elif validacion == "No":
+                        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                        print(f"La línea con el vehiculo {tipoVehiculo} no fue eliminada.")
+                        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                        return menuAdmin()
                 
                     else:
-                        print("=======================================")
-                        print("\n")
                         print("Error: opcion no reconocida")
-                        return borrarProducto()
+                        return eliminarVehiculo()
                                           
                 else:
-                    nuevasLineas += [lineaI]
+                        nuevasLineas += [lineaV]
 
-            if borrarLinea == True:
+                if eliminarLinea == True:
                 
-                archivo = open("Inventario.txt",encoding="utf-8", mode = 'w')
-                archivo.writelines(nuevasLineas)
-                archivo.close()
-                return inventario()
+                    archivo = open("vehiculo.txt",encoding="utf-8", mode = 'w')
+                    archivo.writelines(nuevasLineas)
+                    archivo.close()
+                    return menuAdmin()
             
             else:
-                print("=======================================")
-                print("\n")
-                print(f"No se encontró ninguna línea con código {codigo} en el inventario.")
-                return borrarProducto()
+            
+                print(f"No se encontró ninguna línea con el vehículo {tipoVehiculo} en el sistema.")
+                return eliminarVehiculo()
     else:
-        print("=======================================")
-        print("\n")        
-        print("Error: El código no debe ser vacio")
-        return borrarProducto()
+        print("Error: tipo de vehículo debe ser diferente de vacío.")
+        return eliminarVehiculo()
+
+######################################################################################################################################################################
+def eliminarRepuesto():
+    print("=======================================")
+    print("           Eliminar Repuesto           ")
+    print("=======================================")
+
+    mostrar = mostrar_Aux()
+    nombreR = input("Digite el nombre del repuesto de el dato que desea eliminar: ")
+
+    if (nombreR != ""):
+        try:
+            nombreR = str(nombreR)
+        except:
+            print("Error: El nombre del repuesto NO debe ser numerico")
+            return eliminarRepuesto()
+        else:
+            
+            archivo = open("repuestos.txt", encoding="utf-8", mode="r")
+            lineasR = archivo.readlines()
+            archivo.close()
+                    
+
+            archivoFact = open("Facturas.txt", encoding="utf-8", mode="r")
+            lineasFact = archivoFact.readlines()
+            archivoFact.close()
+            
+            nuevasLineas = []
+            eliminarLineas = False
+            registradoFact = False
+            
+            for lineaR in lineasR:
+                repuestoConten = lineaR.split(';')
+                lineaRep = (repuestoConten[0])
+                
+                if lineaRep == nombreR:
+
+                    for lineaFact in lineasFact:
+                        facturaContent = lineaFact.split(',')
+                        repuestoFact = facturaContent[2]
+
+                        if lineaRep == repuestoFact:
+                            registradoFact = True
+
+                        if registradoFact == True:
+                            print(f" El repueto {nombreR} concuerda con la factura {repuestoFact} por lo que no se puede eliminar este vehiculo. ingresa otro vehiculo")
+                            return eliminarRepuesto()
+                    print("Se eliminara la siguiente linea: ")
+                    print(lineaV)
+                    
+                    validacion = input("¿Estás seguro en eliminar esta linea? (Si/No): ")
+                    validacion = vaidacion.capitalize()
+                    
+                    if validacion == "Si":
+                        print("#################################################################")
+                        print(f"¡La línea con el repuesto {nombreR} se elimino exitosamente!")
+                        print("#################################################################")
+                        
+                        eliminarLinea = True
+                        
+                    elif validacion == "No":
+                        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                        print(f"La línea con el repuesto {nombreR} no fue eliminada.")
+                        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                        return menuAdmin()
+                
+                    else:
+                        print("Error: opcion no reconocida")
+                        return eliminarRepuesto()
+                                          
+                else:
+                        nuevasLineas += [lineaV]
+
+                if eliminarLinea == True:
+                
+                    archivo = open("repuestos.txt",encoding="utf-8", mode = 'w')
+                    archivo.writelines(nuevasLineas)
+                    archivo.close()
+                return menuAdmin()
+            
+            else:
+            
+                print(f"No se encontró ninguna línea con el repuesto{nombreR} en el sistema.")
+                return eliminarRepuesto()
+    else:
+        print("Error: tipo de repuesto debe ser diferente de vacío.")
+        return eliminarRepuesto()
     
+
+######################################################################################################################################################################
+def eliminarManoObra():
+    print("=======================================")
+    print("           Eliminar Mano De Obra       ")
+    print("=======================================")
+
+    mostrar = mostrar_Aux()
+    nombreMeca = input("Ingrese el nombre del mecánico de el dato que desea eliminar: ")
+
+    if (nombreMeca != ""):
+        try:
+            nombreMeca = str(nombreMeca)
+        except:
+            print("Error: El nombre del mecánico NO debe ser numerico")
+            return eliminarManoObra()
+        else:
+            
+            archivo = open("manoDeObra.txt", encoding="utf-8", mode="r")
+            lineasMano = archivo.readlines()
+            archivo.close()
+                    
+
+            archivoFact = open("Facturas.txt", encoding="utf-8", mode="r")
+            lineasFact = archivoFact.readlines()
+            archivoFact.close()
+            
+            nuevasLineas = []
+            eliminarLineas = False
+            registradoFact = False
+            
+            for lineaMano in lineasMano:
+                manoConten = lineaMano.split(';')
+                lineaMano = (manoConten[0])
+                
+                if lineaMano == nombreMeca:
+
+                    for lineaFact in lineasFact:
+                        facturaContent = lineaFact.split(',')
+                        manoFact = facturaContent[2]
+
+                        if lineaMano == manoFact:
+                            registradoFact = True
+
+                        if registradoFact == True:
+                            print(f" El mecánico {nombreMeca} concuerda con la factura {manoFact} por lo que no se puede eliminar la mano de obra realizada. ingresa otro dato")
+                            return eliminarManoObra()
+                    print("Se eliminara la siguiente linea: ")
+                    print(lineaMano)
+                    
+                    validacion = input("¿Estás seguro en eliminar esta linea? (Si/No): ")
+                    validacion = vaidacion.capitalize()
+                    
+                    if validacion == "Si":
+                        print("#################################################################")
+                        print(f"¡La línea con el mecánico a cargo {nombreMeca} se elimino exitosamente!")
+                        print("#################################################################")
+                        
+                        eliminarLinea = True
+                        
+                    elif validacion == "No":
+                        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                        print(f"La línea con el mecánico a cargo {nombreMeca} no fue eliminada.")
+                        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                        return menuAdmin()
+                
+                    else:
+                        print("Error: opcion no reconocida")
+                        return eliminarManoObra()
+                                          
+                else:
+                        nuevasLineas += [lineaMano]
+
+                if eliminarLinea == True:
+                
+                    archivo = open("manoDeObra.txt",encoding="utf-8", mode = 'w')
+                    archivo.writelines(nuevasLineas)
+                    archivo.close()
+                return menuAdmin()
+            
+            else:
+            
+                print(f"No se encontró ninguna línea con el mecáncico a cargo{nombreMeca} en el sistema.")
+                return eliminarManoObra()
+    else:
+        print("Error: El nombre del mecánico debe ser diferente de vacío.")
+        return eliminarManoObra()
+######################################################################################################################################################################
+def eliminarMantenimiento():
+    print("=======================================")
+    print("           Eliminar Mantenimiento      ")
+    print("=======================================")
+
+    mostrar = mostrar_Aux()
+    tipoMantenimiento = input("Ingrese el plan de mantenimiento de el dato que desea eliminar: ")
+
+    if (tipoMantenimiento != ""):
+        try:
+            tipoMantenimiento = str(tipoMantenimiento)
+        except:
+            print("Error: El tipo de mantenimiento NO debe ser numerico")
+            return eliminarMantenimiento()
+        else:
+            
+            archivo = open("mantenimiento.txt", encoding="utf-8", mode="r")
+            lineasPlan = archivo.readlines()
+            archivo.close()
+                    
+
+            archivoFact = open("Facturas.txt", encoding="utf-8", mode="r")
+            lineasFact = archivoFact.readlines()
+            archivoFact.close()
+            
+            nuevasLineas = []
+            eliminarLineas = False
+            registradoFact = False
+            
+            for lineaPlan in lineasPlan:
+                planConten = lineaPlan.split(';')
+                lineaPlan = (planConten[0])
+                
+                if lineaPlan == tipoMantenimiento:
+
+                    for lineaFact in lineasFact:
+                        facturaContent = lineaFact.split(',')
+                        planFact = facturaContent[2]
+
+                        if lineaPlan == planFact:
+                            registradoFact = True
+
+                        if registradoFact == True:
+                            print(f" El plan {tipoMantenimiento} concuerda con la factura {planFact} por lo que no se puede eliminar este plan. ingresa otro dato")
+                            return eliminarMantenimiento()
+                    print("Se eliminara la siguiente linea: ")
+                    print(lineaPlan)
+                    
+                    validacion = input("¿Estás seguro en eliminar esta linea? (Si/No): ")
+                    validacion = vaidacion.capitalize()
+                    
+                    if validacion == "Si":
+                        print("###################################################################")
+                        print(f"¡La línea con el plan {tipoMantenimiento} se eliminó exitosamente!")
+                        print("###################################################################")
+                        
+                        eliminarLinea = True
+                        
+                    elif validacion == "No":
+                        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                        print(f"La línea con el plan {tipoMantenimiento} no fue eliminada.")
+                        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                        return menuAdmin()
+                
+                    else:
+                        print("Error: opcion no reconocida")
+                        return eliminarMantenimiento()
+                                          
+                else:
+                        nuevasLineas += [lineaPlan]
+
+                if eliminarLinea == True:
+                
+                    archivo = open("mantenimiento.txt",encoding="utf-8", mode = 'w')
+                    archivo.writelines(nuevasLineas)
+                    archivo.close()
+                return menuAdmin()
+            
+            else:
+            
+                print(f"No se encontró ninguna línea con el plan{tipoMantenimiento} en el sistema.")
+                return eliminarMantenimiento()
+    else:
+        print("Error: El plan de mantenimiento debe ser diferente de vacío.")
+        return eliminarMantenimiento()
+######################################################################################################
+
+def menuConsulta():
+    
+                print("==========================================")
+                print("               ¡Bienvenido!               ")
+                print("/n")
+                print("       MENU COSULTAS TÉCNICAS TMG S.A     ")
+                print("==========================================")
+                print("/n")
+                print(" 1. Consultar Planes De Mantenimiento ")
+                print(" 2. Generar Reservación               ")
+                print(" 3. Cancelar Reservación              ")
+                print(" 4. Consulta Reparación               ")
+                print(" 5. Consulta Facturación              ")
+                print(" 6. Volver                            ")
+
 "--------------------------------------------------------------------------------"
 
 """
@@ -1144,8 +1811,8 @@ def facturar():
     cliente = cliente_Aux()
     print(f"Facturación en proceso para el/la cliente {cliente}") 
     print("\n")
-    mostrar = mostrar_Aux()
-    print("\n")
+    mostrar = mostrar()
+    
 
     fechaActual = datetime.date.today().strftime("%d/%m/%Y")
     horaActual = datetime.datetime.now().strftime("%I:%M:%p")
@@ -1277,7 +1944,7 @@ Restricciones:
              ¬ La opción no debe ser vacia
              ¬ La opción debe estar en el parámetro mostrado
 """
-
+ 
 def reportes():
     
     print("\n")
@@ -1926,16 +2593,7 @@ def estadoUtilidades():
         print("Te vamos a redireccionar al aparatado de 'inventario'")
         print("para que realices los registros correspodientes.")
 
-"--------------------------------------------------------------------------------"
-"--------------------------------------------------------------------------------"
 
-def salir():
-    print("\n+-----------------------------------------------------------------+\n")  
-    print("          Haz cerrado exitosamente tu gestor negocio                 ")
-    print("\n+-----------------------------------------------------------------+\n")  
-
-"--------------------------------------------------------------------------------"
-"--------------------------------------------------------------------------------"
 
 ## Función para determinar el largo de un texto
 
@@ -1993,93 +2651,63 @@ def cliente_Aux():
 
 "--------------------------------------------------------------------------------"
 
-## Función para preguntar si se quiere visualizar el contenido del inventario o no
-
-def mostrar_Aux():
+def mostrar():
 
     while True:
-        opcion = input("¿Quieres que se muestre el contenido de tu inventario (Y/N)?: ")
+        opcion = input("¿ A continuación se mostrará el contenido de la gestión. Desea que se muestre (Si/No)?:")
         opcion = opcion.capitalize()
         print()
 
-        if opcion == "Y":
-            archivo = open("Inventario.txt", encoding="utf-8", mode="r")
+        if opcion == "Si":
+            archivo = open(archivo + ".txt", encoding="utf-8", mode="r")
             lineas = archivo.readlines()
             archivo.close()
 
             if largoTexto_Aux(lineas) != 0:
-                print("========================================")
-                print("\n")
                 for linea in lineas:
                     cantidad = int(linea.strip().split(';')[4])
                     if cantidad != 0:
                         print(linea)
-                print("========================================")
-                print("\n")
             else:
-                print("========================================")
-                print("\n")
-                print("Aún no has registrado ningún inventario, te vamos a redireccionar")
-                print("al menú 'inventario' para que realices los registros pertimentes.")
-                print("\n")
-                print("========================================")
-                print("\n")
-                return inventario()
-
+                print("No se ha agregado ningún tipo de gestion con esos datos. Se te devolverá al menú administrador para que los agregues.")
+               
+                return menuAdmin()
             break
 
-        elif opcion == "N":
+        elif opcion == "No":
             break
 
         else:
-            print("=======================================")
-            print("\n")
-            print("Error: opción no reconocida. Por favor ingrese 'Y' o 'N'")
-            print("\n")
-            print("=======================================")
-            print("\n")
+            print("Error: Error: Digite una opción válida. opciones son :(Si/No)")
 
-def mostrar_Auxi():
+
+def mostrar_Aux(archivo):
 
     while True:
-        opcion = input("¿Quieres que se muestre el contenido de tu inventario (Y/N)?: ")
+        opcion = input("¿ A continuación se mostrará el contenido de la gestión. Desea que se muestre (Si/No)?: ")
         opcion = opcion.capitalize()
-        print()
 
-        if opcion == "Y":
-            archivo = open("Inventario.txt", encoding="utf-8", mode="r")
+        if opcion == "Si":
+            archivo = open(archivo + ".txt", encoding="utf-8", mode="r")
             lineas = archivo.readlines()
             archivo.close()
 
             if largoTexto_Aux(lineas) != 0:
-                print("========================================")
-                print("\n")
+                
                 for linea in lineas:
                         print(linea)
-                print("========================================")
-                print("\n")
+                        
             else:
-                print("========================================")
-                print("\n")
-                print("Aún no has registrado ningún inventario, te vamos a redireccionar")
-                print("al menú 'inventario' para que realices los registros pertimentes.")
-                print("\n")
-                print("========================================")
-                print("\n")
-                return inventario()
+                print("No se ha agregado ningún tipo de gestion con esos datos. Se te devolverá al menú administrador para que los agregues.")
+                return menuAdmin()
 
             break
 
-        elif opcion == "N":
+        elif opcion == "No":
             break
 
         else:
-            print("=======================================")
-            print("\n")
-            print("Error: opción no reconocida. Por favor ingrese 'Y' o 'N'")
-            print("\n")
-            print("=======================================")
-            print("\n")
+            print("Error: Digite una opción válida. opciones son :(Si/No)")
             
 "--------------------------------------------------------------------------------"
 
@@ -2093,11 +2721,9 @@ def codigoIngresado_Aux():
         print("\n")
 
         if codigoIngresado == "":
-            print("=======================================")
-            print("\n")        
+            print("==================================")      
             print("Error: El código no debe ser vacío")
-            print("\n")
-            print("=======================================")
+            print("==================================")
             print("\n")
             continue
         
@@ -2192,14 +2818,14 @@ def numFactura_Aux():
 
 ## Función para registrar las facturas
 
-def facturasDetalle_AUX(numFactura, codigo, producto, cantidadComprar, precioUnitario, subtotal,impuesto,total):
+def facturas(numFactura, codigo, producto, cantidadComprar,fechaActual,horaActual, precioUnitario, subtotal,impuesto,total):
         
-        facturaDetalle = f"{numFactura},{codigo},{producto},{cantidadComprar},{precioUnitario},{subtotal},{impuesto},{total}\n"
-        archivo = open("FacturasDetalle.txt",encoding="utf-8", mode = 'a')
-        archivo.writelines(facturaDetalle)
+        facturaDetalle = f"{numFactura},{codigo},{producto},{cantidadComprar},{fechaActual},{horaActual},{precioUnitario},{subtotal},{impuesto},{total}\n"
+        archivo = open("Facturas.txt",encoding="utf-8", mode = 'a')
+        archivo.writelines(factura)
         archivo.close()
     
-"--------------------------------------------------------------------------------"
+"""
 
 ## Función para registrar las facturas
 
@@ -2215,7 +2841,7 @@ def facturas_Aux(numFactura,cliente,fechaActual,horaActual,subTotal,impuestos,To
         archivo.writelines(factura)
         archivo.close()
 
-"--------------------------------------------------------------------------------"
+"""
 
 ## Función para borrar la cantidad facturada del inventario
 
@@ -2251,4 +2877,4 @@ def nuevoInventario_Aux(cantidadComprar, codigoIngresado):
     archivo.close()
 
 "--------------------------------------------------------------------------------"
-menu()
+inicio()
